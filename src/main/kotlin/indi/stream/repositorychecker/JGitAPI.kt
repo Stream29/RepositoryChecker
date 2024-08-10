@@ -11,7 +11,7 @@ import org.eclipse.jgit.util.FS
 import java.io.File
 import java.io.OutputStreamWriter
 
-fun sshInit() {
+internal fun sshInit() {
     SshSessionFactory.setInstance(
         SshdSessionFactoryBuilder()
             .setPreferredAuthentications("publickey,keyboard-interactive,password")
@@ -20,11 +20,19 @@ fun sshInit() {
     )
 }
 
-fun Repository.pull() {
+internal fun Repository.pullOrClone(url: String) {
+    if (this.directory.exists()) {
+        this.pull()
+    } else {
+        url.cloneRepositoryTo(this.directory.parentFile)
+    }
+}
+
+internal fun Repository.pull() {
     Git(this).pull().setProgressMonitor(textProgressMonitor).call()
 }
 
-fun String.cloneRepositoryTo(path: File) {
+internal fun String.cloneRepositoryTo(path: File) {
     Git.cloneRepository()
         .setURI(this)
         .setDirectory(path)
@@ -32,10 +40,10 @@ fun String.cloneRepositoryTo(path: File) {
         .call()
 }
 
-val String.file
+internal val String.file
     get() = File(this)
 
-val File.repository
+internal val File.repository
     get() = FileRepositoryBuilder()
         .setGitDir(File(this, ".git"))
         .readEnvironment()
