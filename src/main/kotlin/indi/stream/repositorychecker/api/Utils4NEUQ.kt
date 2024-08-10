@@ -1,6 +1,5 @@
 package indi.stream.repositorychecker.api
 
-
 fun RepositoryChecker.checkNEUQACMStudents() =
     checkSubfolder { studentFolder ->
         studentFolder.name.curriculum.run {
@@ -8,6 +7,16 @@ fun RepositoryChecker.checkNEUQACMStudents() =
                 it(studentFolder)
             }.flatten()
         }
+    }
+
+fun FolderChecker.specialize(
+    studentName: String,
+    weekName: String,
+): FolderChecker =
+    { file ->
+        val weekFolder = file.resolve(weekName)
+        (if (weekFolder.exists()) this(weekFolder) else sequenceOf("文件夹未创建"))
+            .map { "${"$studentName/$weekName: "}: $it" }
     }
 
 val String.curriculum: String
