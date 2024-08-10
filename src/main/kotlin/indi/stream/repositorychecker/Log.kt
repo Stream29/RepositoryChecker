@@ -1,5 +1,6 @@
 package indi.stream.repositorychecker
 
-import org.slf4j.LoggerFactory
+import java.util.logging.Logger
 
-val logger = LoggerFactory.getLogger("RepositoryChecker")!!
+
+val logger = Logger.getLogger("RepositoryChecker")!!
