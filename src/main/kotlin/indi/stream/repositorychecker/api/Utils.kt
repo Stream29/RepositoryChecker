@@ -2,7 +2,7 @@ package indi.stream.repositorychecker.api
 
 import java.io.File
 
-fun RepositoryChecker.checkSubfolder(checker: FolderChecker) =
+fun <T> RepositoryChecker.checkSubfolder(checker: (File) -> Sequence<T>) =
     check {
         it.listFiles()
             .orEmpty()
@@ -14,8 +14,8 @@ fun RepositoryChecker.checkSubfolder(checker: FolderChecker) =
 fun findAnyContains(text: String): FolderChecker =
     { file ->
         file.subFilesWithoutFolder
-            .filter { it.name.contains(text) }
-            .count().let{
+            .filter { it.name.contains(text,true) }
+            .count().let {
                 if (it == 0) sequenceOf("未找到名称包含\"${text}\"的文件")
                 else emptySequence()
             }

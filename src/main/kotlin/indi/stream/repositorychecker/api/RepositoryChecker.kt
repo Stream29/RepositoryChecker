@@ -17,7 +17,7 @@ class RepositoryChecker(private val config: RepositoryConfig) {
 
     private val repository = config.path.file.repository
 
-    fun check(checker: FolderChecker) =
-        repository.pullOrClone(config.url).let { checker(repository.directory) }
+    fun <T : Any> check(checker: (File) -> T) =
+        repository.pullOrClone(config.url).let { checker(config.path.file) }
 }
 

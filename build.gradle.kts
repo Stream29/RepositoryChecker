@@ -14,6 +14,7 @@ dependencies {
     implementation("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")
     implementation("org.eclipse.jgit:org.eclipse.jgit.ssh.apache:6.10.0.202406032230-r")
+    implementation("org.yaml:snakeyaml:2.2")
     testImplementation(kotlin("test"))
 }
 
