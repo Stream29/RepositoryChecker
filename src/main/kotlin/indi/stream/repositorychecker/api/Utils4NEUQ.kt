@@ -2,14 +2,22 @@ package indi.stream.repositorychecker.api
 
 fun RepositoryChecker.checkNEUQACMStudents() =
     checkSubfolder { studentFolder ->
-        studentFolder.name.curriculum.run {
+        studentFolder.name.run {
             requirements.map {
                 it(studentFolder)
             }.flatten()
         }
     }
 
-fun FolderChecker.specialize(
+fun registerCurriculumWithStudent(curriculum: String, students: List<String>) {
+    students.forEach { studentToCurriculum[it] = curriculum }
+}
+
+fun registerCurriculumWithRequirements(curriculum: String, requirements: Map<String, FolderChecker>) {
+    curriculumToRequirements[curriculum] = requirements
+}
+
+private fun FolderChecker.specialize(
     studentName: String,
     weekName: String,
 ): FolderChecker =
@@ -19,10 +27,16 @@ fun FolderChecker.specialize(
             .map { "${"$studentName/$weekName: "}: $it" }
     }
 
-val String.curriculum: String
-    get() = TODO()
+private val String.curriculum: String
+    get() = studentToCurriculum[this] ?: throw IllegalArgumentException("未找到姓名为${this}的学生的学习路线")
 
-val String.requirements: Sequence<FolderChecker>
-    get() = TODO()
+private val String.requirements: Sequence<FolderChecker>
+    get() = curriculumToRequirements[this.curriculum]?.asSequence()?.map { (weekName, checker) ->
+        checker.specialize(this, weekName)
+    } ?: throw IllegalArgumentException("未找到名为${this.curriculum}的学生的学习路线")
+
+private val studentToCurriculum = mutableMapOf<String, String>()
+
+private val curriculumToRequirements = mutableMapOf<String, Map<String, FolderChecker>>()
 
 
