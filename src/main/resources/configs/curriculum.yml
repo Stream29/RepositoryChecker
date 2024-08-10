@@ -1,6 +1,34 @@
 前端:
   week1:
-    contain: 周报
+    contains: 周报
+  week2:
+    contains: 周报
+  week3:
+    contains: 周报
+  week5:
+    contains: 周报
+  week6:
+    contains: 周报
+  week7:
+    contains: 周报
+  week8:
+    contains: 周报
+  week9:
+    contains: 周报
 后端:
   week1:
-    contain: 周报
+    contains: 周报
+  week2:
+    contains: 周报
+  week3:
+    contains: 周报
+  week5:
+    contains: 周报
+  week6:
+    contains: 周报
+  week7:
+    contains: 周报
+  week8:
+    contains: 周报
+  week9:
+    contains: 周报
