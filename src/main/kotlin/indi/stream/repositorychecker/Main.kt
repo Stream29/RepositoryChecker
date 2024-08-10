@@ -1,9 +1,7 @@
 package indi.stream.repositorychecker
 
-import java.io.File
-
 
 fun main() {
     sshInit()
-
+    "E:\\ACodeSpace\\IDEA\\Stream-weekly-report-24".file.repository.pull()
 }

@@ -1,6 +1,7 @@
 package indi.stream.repositorychecker
 
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.lib.TextProgressMonitor
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.eclipse.jgit.transport.SshSessionFactory
@@ -19,6 +20,10 @@ fun sshInit() {
     )
 }
 
+fun Repository.pull() {
+    Git(this).pull().setProgressMonitor(textProgressMonitor).call()
+}
+
 fun String.cloneRepositoryTo(path: File) {
     Git.cloneRepository()
         .setURI(this)
@@ -26,6 +31,9 @@ fun String.cloneRepositoryTo(path: File) {
         .setProgressMonitor(textProgressMonitor)
         .call()
 }
+
+val String.file
+    get() = File(this)
 
 val File.repository
     get() = FileRepositoryBuilder()
