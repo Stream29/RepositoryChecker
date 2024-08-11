@@ -16,7 +16,7 @@ fun findAnyContains(text: String): FolderChecker =
         file.subFilesWithoutFolder
             .filter { it.name.contains(text,true) }
             .count().let {
-                if (it == 0) sequenceOf("未找到名称包含\"${text}\"的文件")
+                if (it == 0) sequenceOf("未找到\"${text}\"的文件")
                 else emptySequence()
             }
     }
