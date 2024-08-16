@@ -10,13 +10,12 @@ fun main() {
     RepositoryChecker(
         Config.getRepositoryConfig()
     ).checkNEUQACMStudents()
-        .groupBy { it.studentName }
+        .groupBy { it.weekName }
         .asSequence()
-        .filter { (_, value) -> value.count { it.message != "没有问题" } >= 3 }
         .forEach {
             println("${it.key}完成情况检查：")
             it.value.forEach { message ->
-                println("${message.weekName}：${message.message}")
+                println("${message.studentName}：${message.message}")
             }
         }
 }
