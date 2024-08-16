@@ -15,6 +15,8 @@
     contains: 周报
   week9:
     contains: 周报
+  week10:
+    contains: 周报
 后端:
   week1:
     contains: 周报
@@ -31,4 +33,6 @@
   week8:
     contains: 周报
   week9:
+    contains: 周报
+  week10:
     contains: 周报
